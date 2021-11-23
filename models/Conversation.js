@@ -16,7 +16,7 @@ class Conversation{
 
     
     getMessages(id){
-      console.log('GET MESSAGE ID');
+      console.log('GET MESSAGE ID-------------------');
       console.log(id);
         const db = getDb();
         return db.collection('chats')
@@ -24,7 +24,7 @@ class Conversation{
     }
     checkConversation(user1,user2){
       
-        console.log('checking conversation');
+        console.log('checking conversation 1121111');
         console.log(user1 + '-' + user2);
         const db = getDb();
         let self = this;
