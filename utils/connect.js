@@ -92,6 +92,7 @@ mongoConnect(()=>{
       u.id, u.first_name ,u.last_name FROM users u LEFT JOIN user_media m ON(m.user_id = u.id AND m.avatar = 1) 
       WHERE u.id != ${user_id} AND u.id =  ${user_id2} LIMIT 1`;
 
+      // console.log();
 
       const rows = await mysql.execute(sql);
         data_status = true;
