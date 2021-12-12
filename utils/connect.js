@@ -1,9 +1,14 @@
 const express = require("express");
+const axios = require('axios');
+
 var http = require("http");
 // const util = require('util');
 const app = express();
 // const port = process.env.PORT || 61120;
 // const port = process.env.PORT || 8481;
+
+
+//main
 const port = process.env.PORT || 80;
 
 
@@ -40,6 +45,28 @@ mongoConnect(()=>{
   
   })
 
+  app.use('/test1', async (req,res,next)=>{
+    console.log('entered-------');
+
+
+    axios
+  .post('http://192.168.157.240/project/cool_girls_app/processors/send-notification.php', {
+    sender: 1,
+    receiver: 1,
+    message:'33333'
+  })
+  .then(res => {
+    console.log(`statusCode: ${res.status}`)
+    // console.log(res)
+  })
+  .catch(error => {
+    console.error(error)
+  })
+
+
+
+    res.send();
+  })
  
   app.use('/conversation', async (req,res,next)=>{
     console.log('entered-------');

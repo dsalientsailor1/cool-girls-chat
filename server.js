@@ -3,6 +3,7 @@ const Conversation = require('./models/Conversation');
 const Conversation2 = require('./models/GroupConversation');
 const server = require('./utils/connect');
 const crypto = require("crypto");
+const axios = require('axios');
 const {
   userJoin,
   getCurrentUser,
@@ -24,9 +25,29 @@ var clients = {};
 var group_clients = {};
 var notification_clients = {};
 
+
+
+
+
+
+
+
+
+
+
 io.on("connection", (socket) => {
   console.log("connetetd");
   console.log(socket.id, "has joined");
+
+  
+  socket.on("notifications", (user) => {
+    console.log('user enetrred');
+    notification_clients[user] = socket;
+    const id = crypto.randomBytes(16).toString("hex");
+    
+    // console.log('-------------------9-----------------------------')
+    // console.log(notification_clients);
+  });
 
 
   // socket.on('join', function (data) {
@@ -359,16 +380,46 @@ io.on("connection", (socket) => {
  
   socket.on("message", (msg) => {
     console.log(msg);
+    console.log('---tat----');
     let targetId = msg.targetId;
 
     if(conversation_id == ''){
       console.log('empty');
     }
+
      conversation.saveMessage(conversation_id,msg).then(result => {
         console.log(result);
         if (clients[targetId]){
           clients[targetId].emit("message", msg);
         }
+
+
+        if (notification_clients[msg.targetId]){
+        notification_clients[msg.targetId].emit("receive_notification", {
+          'type':'message'
+        });
+        }
+
+        
+        const qs = require('qs');
+axios
+  .post('http://192.168.157.240/project/cool_girls_app/processors/send-notification.php', qs.stringify({
+    sender: msg.sourceId,
+    receiver: msg.targetId,
+    message:msg.message
+})
+)
+  .then(res => {
+    // console.log(`statusCode: ${res.status}`)
+    // console.log(res)
+  })
+  .catch(error => {
+    console.error(error)
+  })
+
+
+
+
       }).catch((err) => {
 
         console.log(err);
