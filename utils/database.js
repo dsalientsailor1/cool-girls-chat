@@ -20,8 +20,8 @@ const mongoConnect = callback => {
 
   
 // var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost:27017/coolgirl_coolgirls";
-// var url = "mongodb+srv://coolgirls:SvcpilotNnc123*@cluster0.vuedel2.mongodb.net/?retryWrites=true&w=majority";
+// var url = "mongodb://localhost:27017/coolgirl_coolgirls";
+var url = "mongodb+srv://coolgirls:SvcpilotNnc123*@cluster0.vuedel2.mongodb.net/?retryWrites=true&w=majority";
 
 
 
