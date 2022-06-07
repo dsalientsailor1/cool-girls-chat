@@ -11,8 +11,14 @@ const {
   getRoomUsers
 } = require('./utils/users');
 
+console.log('pppppppppppppp');
 
-var io = require("socket.io")(server);
+// var io = require("socket.io")(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: '*',
+  }
+});
 const conversation = new Conversation;
 const GroupConversation = new Conversation2;
 let conversation_id = '';
@@ -31,7 +37,7 @@ var notification_clients = {};
 
 
 
-
+console.log('tttttttttttttttttttt');
 
 
 
@@ -45,15 +51,12 @@ io.on("connection", (socket) => {
     notification_clients[user] = socket;
     const id = crypto.randomBytes(16).toString("hex");
     
-    // console.log('-------------------9-----------------------------')
-    // console.log(notification_clients);
+   
   });
 
 
-  // socket.on('join', function (data) {
-  //   socket.join(data.email); // We are using room of socket io
-  // });
 
+  
   
   socket.on('joinRoom', ( username, room ) => {
 
@@ -116,227 +119,7 @@ io.on("connection", (socket) => {
 
 
 
-
-
-
-
-
-
-
-    // console.log(username);
-    // const user = userJoin(socket.id, username, room);
-    
-    // console.log('xsxsxsxsxsxsxssx');
-    // socket.join(user.room);
-    // console.log(user.room);
-
-    // Welcome current user
-    // socket.emit('group_message', formatMessage(botName, 'Welcome to ChatCord!'));
-    // clients[user1].emit("old_message", result);
-    // Broadcast when a user connects
-    // socket.emit( 'group_message',
-    // 'ddcdcdcdcdcdc');
-
-    // socket.broadcast
-    //   .to(user.room)
-    //   .emit(
-    //     'group_message',
-    //     'ddcdcdcdcdcdc'
-    //   );
-
-    // Send users and room info
-    // io.to(user.room).emit('roomUsers', {
-    //   room: user.room,
-    //   users: getRoomUsers(user.room)
-    // });
-  // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
-  // socket.on("notification_signin", (user) => {
-  //   console.log('checking users');
-  //   console.log(user);
-  //   notification_clients[user] = socket;
-  //   // const id = crypto.randomBytes(16).toString("hex");
- 
-    
-
-
-
-
-
-   
-  
-  //   // Listen for chatMessage
-  //   socket.on('chatMessage', msg => {
-  //     const user = getCurrentUser(socket.id);
-  //     io.to(user.room).emit('message', formatMessage(user.username, msg));
-  //   });
-  
-  //   // Runs when client disconnects
-  //   socket.on('disconnect', () => {
-  //     const user = userLeave(socket.id);
-  
-  //     if (user) {
-  //       io.to(user.room).emit(
-  //         'messdage',
-  //         formatMessage(botName, `${user.username} has left the chat`)
-  //       );
-  
-  //       // Send users and room info
-  //       io.to(user.room).emit('roomUsers', {
-  //         room: user.room,
-  //         users: getRoomUsers(user.room)
-  //       });
-  //     }
-  //   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //   setTimeout(() => {
-  //     console.log('sending');
-  //     notification_clients[user].emit("notification", 'test');
-  //   }, 5000);
-
-
-  //  setInterval(() => {
-  //     console.log('sending');
-  //     notification_clients[user].emit("notification", 'test');
-  //   }, 500);
-    
-  
-  //   // console.log(clients);
-  // });
-
-
-  // socket.on("group_signin", (user_id,group_id) => {
-  //   console.log('checking users');
-  //   console.log(user_id);
-  //   console.log(group_id);
-  //   group_clients[group_id][user_id] = socket;
-
-  //   console.log(group_clients);
-  //   const id = crypto.randomBytes(16).toString("hex");
-    
-  //   // conversation.saveConversation(id,user1,user2)
-  //   // .then(result => {
-  //   //   console.log('result2....');
-  //   //   console.log(result)
-      
-  //   //   if(conversation.status == 'new'){
-  //   //     conversation_id = id;
-  //   //   }else{
-  //   //     conversation_id = result;
-  //   //   }
-  //   //   console.log('conversation_id....');
-  //   //   console.log(conversation_id);
-      
-  //   //   conversation.getMessages(conversation_id).then((result) => {
-  //   //     console.log('result3....');
-  //   //     console.log(result);
-  //   //     if(result != ''){
-  //   //       clients[user1].emit("old_message", result);
-  //   //     }
-        
-  //   //   }).catch((err) => {
-        
-  //   //   });;
-  //   //   // console.log(conversation_id)
-  //   // }).catch((err) => {
-  //   //   console.log(err);
-  //   //  });;
-
-
-
-
-  //   // console.log(clients);
-  // });
- 
-  // socket.on("message", (msg) => {
-  //   console.log(msg);
-  //   let targetId = msg.targetId;
-
-  //   if(conversation_id == ''){
-  //     console.log('empty');
-  //   }
-  //    conversation.saveMessage(conversation_id,msg).then(result => {
-  //       console.log(result);
-  //       if (clients[targetId]){
-  //         clients[targetId].emit("message", msg);
-  //       }
-  //     }).catch((err) => {
-
-  //       console.log(err);
-  //      });;
-
-
-   
-  // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -365,11 +148,13 @@ io.on("connection", (socket) => {
         console.log('result3....');
         console.log(result);
         if(result != ''){
+        console.log('result3....-------------------');
+
           clients[user1].emit("old_message", result);
         }
         
       }).catch((err) => {
-        
+        console.log(err)
       });;
       // console.log(conversation_id)
     }).catch((err) => {
@@ -402,20 +187,21 @@ io.on("connection", (socket) => {
 
         
         const qs = require('qs');
-axios
-  .post('http://192.168.157.240/project/cool_girls_app/processors/send-notification.php', qs.stringify({
-    sender: msg.sourceId,
-    receiver: msg.targetId,
-    message:msg.message
-})
-)
-  .then(res => {
-    // console.log(`statusCode: ${res.status}`)
-    // console.log(res)
-  })
-  .catch(error => {
-    console.error(error)
-  })
+// axios
+//   .post('http://192.168.157.240/project/cool_girls_app/processors/send-notification.php', qs.stringify({
+//     sender: msg.sourceId,
+//     receiver: msg.targetId,
+//     message:msg.message
+// })
+// )
+  // .then(res => {
+  //   // console.log(`statusCode: ${res.status}`)
+  //   // console.log(res)
+  // })
+  // .catch(error => {
+  //   console.error(error)
+  // })
+
 
 
 
@@ -440,3 +226,4 @@ io.on('connect_failed', err => handleErrors(err));
 io.on('disconnect', err => handleErrors(err));
 
 // 
+

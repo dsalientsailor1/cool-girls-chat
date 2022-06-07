@@ -1,4 +1,4 @@
-const mongoConnect = require('./utils/database').mongoConnect;
+// const mongoConnect = require('./utils/database').mongoConnect;
 const Conversation = require('./models/Conversation');
 const server = require('./utils/connect');
 const crypto = require("crypto");

@@ -1,15 +1,44 @@
 const express = require("express");
 const axios = require('axios');
-
+// var https = require('https');
 var http = require("http");
 // const util = require('util');
 const app = express();
+const cors = require('cors');
+app.use(cors({
+    origin: 'null'
+}));
+
+
+
+app.use(function (req, res, next) {
+
+  // Website you wish to allow to connect
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  // Request methods you wish to allow
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+  // Request headers you wish to allow
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+  // Set to true if you need the website to include cookies in the requests sent
+  // to the API (e.g. in case you use sessions)
+  res.setHeader('Access-Control-Allow-Credentials', true);
+
+  // Pass to next layer of middleware
+  next();
+});
+
+
+
 // const port = process.env.PORT || 61120;
 // const port = process.env.PORT || 8481;
 
 
 //main
-const port = process.env.PORT || 80;
+// const port = process.env.PORT || 4200;
+const port =  1994;
 
 
 // const port = 36939;
@@ -20,23 +49,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const mongoConnect = require('./database').mongoConnect;
 const getDb = require('../utils/database').getDb;
 const mysql = require('./db');
-// const query = util.promisify(mysql.query).bind(mysql);
-// module.exports = app;
+
+
 
 console.log('entered-123------');
 
 
-// const m = require('mysql2');
-// const mysql = m.createPool({
-//     host:'localhost',
-//     user:'root',
-//     database:'cool_girls',
-//     // password:''
-// });
-
-
-
-// mysql.query
 
 mongoConnect(()=>{
     server.listen(port, () => {
@@ -45,6 +63,21 @@ mongoConnect(()=>{
   
   })
 
+
+
+
+
+
+  app.use('/test', async (req,res,next)=>{
+    console.log('entered-------');
+
+
+
+    res.send('cdcdcdcdcdcdcdcdcdcdcdc');
+  })
+
+
+  
   app.use('/test1', async (req,res,next)=>{
     console.log('entered-------');
 
@@ -67,6 +100,7 @@ mongoConnect(()=>{
 
     res.send();
   })
+
  
   app.use('/conversation', async (req,res,next)=>{
     console.log('entered-------');
@@ -396,7 +430,10 @@ mongoConnect(()=>{
   })
 
 
-
+  app.use('/', async (req,res,next)=>{
+    res.send('<h3>dcdcdcdcdcdcdc</h3>');
+  })
+ 
 
 
 
